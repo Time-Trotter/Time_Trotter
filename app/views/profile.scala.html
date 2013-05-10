@@ -1,0 +1,39 @@
+@(user: User) 
+@main(title = "Home", user) {
+<div class="inner-container">
+	<h1>Edit Profile</h1>
+	<legend></legend>
+	<br> @helper.form(routes.Application.editProfile) {
+	<fieldset id="registerHere">
+		<p>
+			<input type="text" name="firstName" value="@user.firstName" required
+				rel="popover" data-content="Edit First Name">
+		</p>
+		<p>
+			<input type="text" name="middleName" value="@user.middleName"
+				rel="popover" data-content="Edit Middle Name">
+		</p>
+		<p>
+			<input type="text" name="lastName" value="@user.lastName" required
+				rel="popover" data-content="Edit Last Name">
+		</p>
+		<p>
+			<input type="text" name="jobTitle" value="@user.jobTitle"
+				rel="popover" data-content="Edit Job Title">
+		</p>
+		<p>
+			<input type="email" name="email" value="@user.email" required
+				class="uneditable-input" rel="popover"
+				data-content="Email can't be changed">
+		</p>
+		<p>
+			<input type="password" name="password" value="@user.password"
+				required rel="popover" data-content="Edit Password">
+		</p>
+		<br>
+		<p>
+			<button type="submit" class="btn">Save</button>
+		</p>
+	</fieldset>
+</div>
+} }
