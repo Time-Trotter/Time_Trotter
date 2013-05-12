@@ -14,8 +14,9 @@
 	<div class="container">
 		<div class="heading">
 			@helper.form(routes.Application.authenticate) {
-			<h1>Time Trotter</h1>
-			<div class="copy">A product by Orlov Trotter LLC</div>
+			<a href="@routes.Application.index"><img alt="" src="@routes.Assets.at("images/custom/logo.png")"></a>
+<!-- 			<h1>Time Trotter</h1> -->
+<!-- 			<div class="copy">A product by Orlov Trotter LLC</div> -->
 			<legend></legend>
 			<br>
 			<br>
@@ -34,16 +35,16 @@
 	                    @flash.get("success")
 	                </p>
 	            }
-	            <fieldset id="registerHere">
-					<div class="well">
+	            <fieldset id="login_field">
+					<div class="well" style="width:400px;">
 						<p>
-			                <input type="text" name="companyId" placeholder="Company Id" rel="popover" data-content="Enter Company ID">
+			                <input type="text" name="companyId" placeholder="Company Id" rel="popover" data-content="We need your Company ID">
 			            </p>
 						<p>
-			                <input type="email" name="email" placeholder="Email" value="@form("email").value">
+			                <input type="email" name="email" placeholder="Email" value="@form("email").value" rel="popover" data-content="What's your Email Address?">
 			            </p>
 			            <p>
-			                <input type="password" name="password" placeholder="Password">
+			                <input type="password" name="password" placeholder="Password" rel="popover" data-content="What's your password on Time Trotter?">
 			            </p>
 			            <p>
 			                <button type="submit" class="btn">Login</button>
@@ -72,10 +73,17 @@
 	</div>
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
-	<script src="@routes.Assets.at("javascripts/custom.js")"></script>
-	<script src="http://code.jquery.com/jquery.js"></script>
-	<script src="@routes.Assets.at("javascripts/custom.js")"></script>
+	<script src="@routes.Assets.at("javascripts/jqBootstrapValidation.js")"></script>
+	<script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.validate.js")"></script>
 </body>
+<script type="text/javascript">
+$('#login_field input').on('mouseenter',function() {
+	$(this).popover('show')
+});
+$('#login_field input').on('mouseleave',function() {
+	$(this).popover('hide')
+});
+</script>
 <style>
 body {
 	padding-bottom: 40px;

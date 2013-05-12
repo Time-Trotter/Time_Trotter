@@ -1,18 +1,109 @@
-@(user: User) 
-@main(title = "Home", user) {
+@(user: User, startCal: Calendar, flag: String) 
+@import java.util.Date
+@import java.text.SimpleDateFormat
+@import java.util.Calendar
+@main(title = "Home", user){
+
 <div class="inner-container">
-	<h1>Time Sheets</h1>
-	<legend></legend>
-	<br>
-	<div class="container-fluid">
-		<div class="row-fluid">
-			<div class="span2" style="">
-				<!--Sidebar content-->
+	<fieldset id="time">
+
+		<h1>Enter Time</h1>
+		<legend></legend>
+		<br>
+		@if(flag.equals("Enter Time")){
+		<div class="enterTime">
+			<div id="calendar" style="padding-left: 400px;">
+				<i class="icon-chevron-left"></i><b>Week of: @startCal.getTime()</b><i
+					class="icon-chevron-right"></i>
 			</div>
-			<div class="span10">
-				<!--Body content-->
+			<table class="table table-striped table-bordered" id="project_table">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Project</th>
+						<th>Task</th>
+						<th>Notes</th>
+						<th>Sun</th>
+						<th>Mon</th>
+						<th>Tue</th>
+						<th>Wed</th>
+						<th>Thu</th>
+						<th>Fri</th>
+						<th>Sat</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><i class="icon-minus"></i>|<i class="icon-plus"></i></td>
+						<td><select name="proj" id="proj" required class="select">
+								<option>Select a Project</option>
+								<option>Dummy1</option>
+								<option>Dummy2</option>
+								<option>Dummy3</option>
+								<option>Dummy4</option>
+						</select></td>
+						<td><select name="task" id="task" required class="select">
+								<option>Select a Task</option>
+								<option>Development</option>
+								<option>Testing</option>
+								<option>Design</option>
+								<option>UI</option>
+						</select></td>
+						<td><input type="text" name="notes"
+							placeholder="Additional Notes" class="input-medium"></td>
+						<td><input type="text" name="sun" placeholder="0.0"
+							class="input-small"></td>
+						<td><input type="text" name="mon" placeholder="0.0"
+							class="input-small"></td>
+						<td><input type="text" name="tue" placeholder="0.0"
+							class="input-small"></td>
+						<td><input type="text" name="wed" placeholder="0.0"
+							class="input-small"></td>
+						<td><input type="text" name="thu" placeholder="0.0"
+							class="input-small"></td>
+						<td><input type="text" name="fri" placeholder="0.0"
+							class="input-small"></td>
+						<td><input type="text" name="sat" placeholder="0.0"
+							class="input-small"></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="buttons">
+				<button type="reset" class="btn">Clear</button>
+				<button type="submit" class="btn">Save</button>
+				<button type="submit" class="btn">Submit</button>
 			</div>
 		</div>
-	</div>
+		}@if(flag.equals("Approved Time")){
+		<div class="approvedTime">
+			No Approved Timesheets
+		</div>
+		}@if(flag.equals("Pending Time")){
+		<div class="pendingTime">
+			No Pending Timesheets
+		</div>
+		}@if(flag.equals("Approve Time")){
+		<div class="approveTime">
+			Nothing to approve
+		</div>
+		}@if(flag.equals("Rejected Time")){
+		<div class="rejectedTime">
+			No Rejected Timesheets
+		</div>
+		}
+	</fieldset>
+	<br>
 </div>
+
 }
+<style>
+.select {
+    width: 135px;
+}
+.input-small {
+    width: 20px;
+}
+.buttons{
+	float: right;
+}
+</style>

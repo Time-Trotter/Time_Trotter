@@ -22,6 +22,10 @@ GET		/profile					controllers.Application.profile()
 POST	/profile					controllers.Application.editProfile()
 #Timesheet
 GET		/timesheet					controllers.Timesheet.time()
+GET		/approved					controllers.Timesheet.approvedTime()
+GET		/rejected					controllers.Timesheet.rejectedTime()
+GET		/approve					controllers.Timesheet.approveTime()
+GET		/pending					controllers.Timesheet.pendingTime()
 #Projects
 GET		/projects					controllers.Projects.view()
 POST    /projects                   controllers.Projects.add()

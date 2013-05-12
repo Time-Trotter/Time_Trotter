@@ -16,8 +16,7 @@
 		<div class="container">
 		<div class="heading">
 			@helper.form(routes.Application.createAccount) {
-			<h1>Time Trotter</h1>
-			<div class="copy">A product by Orlov Trotter LLC</div>
+			<a href="@routes.Application.index"><img alt="" src="@routes.Assets.at("images/custom/logo.png")"></a>
 			<legend></legend>
 			<br>
 			<br>
@@ -27,31 +26,31 @@
 					<fieldset id="registerHere">
 						<div class="well">
 						<p>
-			                <input type="text" name="companyId" placeholder="Company Id" required rel="popover" data-content="Enter your Company Id (Ask your Company Administrator for CompanyId)">
+			                <input type="text" id="companyId" name="companyId" placeholder="Company Id" required rel="popover" data-content="Enter your Company Id (Ask your Company Administrator for CompanyId)">
 			            </p>
 			            <p>
-			                <input type="text" name="firstName" placeholder="First Name" required rel="popover" data-content="Enter First Name">
+			                <input type="text" id="firstName" name="firstName" placeholder="First Name" required rel="popover" data-content="Enter First Name">
 			            </p>
 			            <p>
-			                <input type="text" name="middleName" placeholder="Middle Name" rel="popover" data-content="Enter Middle Name">
+			                <input type="text" id="middleName" name="middleName" placeholder="Middle Name" rel="popover" data-content="Enter Middle Name">
 			            </p>
 			            <p>
-			                <input type="text" name="lastName" placeholder="Last Name" required rel="popover" data-content="Enter Last Name">
+			                <input type="text" id="lastName" name="lastName" placeholder="Last Name" required rel="popover" data-content="Enter Last Name">
 			            </p>
 			            <p>
 			                <input type="text" name="jobTitle" placeholder="Job Title" rel="popover" data-content="Enter Job Title">
 			            </p>
 						<p>
-			                <input type="email" name="email" placeholder="Email" required value="" rel="popover" data-content="Enter Email Address">
+			                <input type="email" id="email" name="email" placeholder="Email" required value="" rel="popover" data-content="Enter Email Address">
 			            </p>
 			            <p>
-			                <input type="password" name="password" placeholder="Password" required rel="popover" data-content="Password must be minimum 6 characters" value="">
+			                <input type="password" id="password" name="password" placeholder="Password" required rel="popover" data-content="Password must be minimum 6 characters" value="">
 			            </p>
 			            <p>
-			                <input type="password" name="cpassword" placeholder="Confirm Password" required rel="popover" data-content="This should match Password">
+			                <input type="password" id="cpassword" name="cpassword" placeholder="Confirm Password" required rel="popover" data-content="This should match Password">
 			            </p>
 			            <p>
-			                <select name="securityQuestion">
+			                <select name="securityQuestion" id="securityQuestion" required>
 			                	<option>Select a Security Question</option>
 			                	<option>What is your mother's maiden name?</option>
 			                	<option>What was your first car's make?</option>
@@ -60,7 +59,7 @@
 			                </select>
 			            </p>
 			            <p>
-			            	<input type="text" name="securityAnswer" placeholder="Security Answer" required rel="popover" data-content="Enter Security Answer">
+			            	<input type="text" id="securityAnswer" name="securityAnswer" placeholder="Security Answer" required rel="popover" data-content="Enter Security Answer">
 			            </p>
 			            <br>
 			            <p>
@@ -77,7 +76,6 @@
 		</div>
 		<!-- BODY -->
 		
-		
 		<!-- FOOTER -->
 		<footer>
 			<p>
@@ -89,11 +87,55 @@
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
 	<script src="@routes.Assets.at("javascripts/jqBootstrapValidation.js")"></script>
-	<script src="@routes.Assets.at("javascripts/custom.js")"></script>
+	<script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.validate.js")"></script>
 </body>
 <script type="text/javascript">
-	$(function () { $("text,input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
+	$(document).ready(function() {
+		// Popover  show
+		$('#registerHere input').on('mouseenter',function() {
+			$(this).popover('show')
+		});
+		//Popover hide
+		$('#registerHere input').on('mouseleave',function() {
+			$(this).popover('hide')
+		});
+		// Validation
+		$("#registerHere").validate({
+			rules : {
+				password : {
+					required : true,
+					minlength : 6
+				},
+				cpassword : {
+					required : true,
+					equalTo : "#password"
+				},
+			},
+
+			messages : {
+				password : {
+					required : "Enter your password",
+					minlength : "Password must be minimum 6 characters"
+				},
+				cpassword : {
+					required : "Enter confirm password",
+					equalTo : "Password and Confirm Password must match"
+				}
+			},
+
+			errorClass : "help-inline",
+			errorElement : "span",
+			highlight : function(element, errorClass, validClass) {
+				$(element).parents('.row').addClass('error');
+			},
+			unhighlight : function(element, errorClass, validClass) {
+				$(element).parents('.row').removeClass('error');
+				$(element).parents('.row').addClass('success');
+			}
+		});
+	});
 </script>
+
 <style>
 body {
 	padding-bottom: 40px;
