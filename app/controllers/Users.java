@@ -14,9 +14,7 @@ import views.html.*;
 public class Users extends Controller {
 	
 	public static Result view(){
-    	System.out.println("UserName+===="+request().username());
     	User user = User.findByEmail(request().username());
-		System.out.println("user="+user.firstName);
 		List<User> userList = User.find.all();
 		return ok(userView.render(user, userList));
 	}
