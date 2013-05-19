@@ -1,4 +1,4 @@
-@(user: User, project: List[Project]) @main(title = "Manage Project", user) {
+@(user: User, task: List[Task]) @main(title = "Manage Tasks", user) {
 <div class="inner-container">
 	 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/demo_table_jui.css")">
 	 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/ui-lightness/jquery-ui-1.9.2.custom.css")">
@@ -17,44 +17,37 @@
 	<script type="text/javascript">
   /* Table initialisation */
   $(document).ready(function() {
-    $('#project_table').dataTable( {
+    $('#task_table').dataTable( {
       "bProcessing": true,
       "aaSorting": [[ 0, "asc" ]],
       "bServerSide": true,
       "bJQueryUI": true,
       "sPaginationType": "full_numbers",
-      "sAjaxSource": "@routes.Projects.view()"
+      "sAjaxSource": "@routes.Tasks.view()"
     });
   });
 </script>
-	<h1>Manage Projects</h1>
+	<h1>Manage Tasks</h1>
 	<legend></legend>
-
-	@if(project.isEmpty()) {
-	<h4>There aren't any Projects</h4>
+	@if(task.isEmpty()) {
+	<h4>There aren't any Tasks</h4>
 	} else {
 
-	<table class="table table-striped table-bordered" id="project_table">
+	<table class="table table-striped table-bordered" id="task_table">
 		<thead>
 			<tr>
+				<th>Task Name</th>
 				<th>Project Name</th>
-				<th>Start Date</th>
-				<th>End Date</th>
-				<th>Billable</th>
-				<th>Active</th>
 				<th>Edit</th>
 				<th>Delete</th>
 			</tr>
 		</thead>
 		<tbody>
-			@for(p <- project) {
+			@for(t <- task) {
 			<tr>
-				<td>@p.projectName</td>
-				<td>@p.startDate</td>
-				<td>@p.endDate</td>
-				<td>@p.billable</td>
-				<td>@p.active</td>
-				<td><a class="btn" href="@routes.Projects.add"><i class="icon-edit"></i></a></td>
+				<td>@t.title</td>
+				<td>@t.project.projectName</td>
+				<td><a class="btn" href="#"><i class="icon-edit"></i></a></td>
 				<td><a class="btn" href="#"><i class="icon-trash"></i></a></td>
 			</tr>
 			}
